@@ -1,4 +1,22 @@
-
+# Virtual Environment
 venv/
+
+# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Environment variables
+.env
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
