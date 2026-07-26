@@ -14,32 +14,30 @@ export default function App() {
   const [error, setError] = useState("");
 
   const analyzeWebsite = async () => {
-    if (!url.trim()) {
-      setError("Please enter a website URL.");
-      return;
-    }
+  if (!url.trim()) {
+    setError("Please enter a website URL.");
+    return;
+  }
 
-    setLoading(true);
-    setError("");
-    setResult(null);
+  try {
+    new URL(url);
+  } catch {
+    setError("Please enter a valid URL (e.g. https://example.com)");
+    return;
+  }
 
-    try {
-      const response = await api.post("/audit", {
-        url,
-      });
+  setError("");
+  setLoading(true);
 
-      setResult(response.data);
-    } catch (err) {
-      if (err.response) {
-        setError(err.response.data.detail);
-      } else {
-        setError("Unable to connect to the server.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  try {
+    const response = await api.post("/audit", { url });
+    setResult(response.data);
+  } catch (err) {
+    setError(err.response?.data?.detail || "Something went wrong.");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <>
       <Navbar />
