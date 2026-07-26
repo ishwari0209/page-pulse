@@ -6,7 +6,12 @@ app = FastAPI(
     title="Page Pulse API",
     version="1.0.0"
 )
-
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to Page Pulse API 🚀",
+        "docs": "/docs"
+    }
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
